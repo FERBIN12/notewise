@@ -1,0 +1,14 @@
+[
+ {"topic": "Kalman gain", "explanation": "The Kalman gain decides how much to trust the measurement. When the measurement noise R is small the gain is large, so the filter follows the measurement.", "planted_error": false},
+ {"topic": "Kalman gain", "explanation": "When the measurement noise R is large the Kalman gain is large, so the filter trusts the measurement more.", "planted_error": true},
+ {"topic": "Derivative kick", "explanation": "When the setpoint jumps, the derivative of the error spikes the output. Taking the derivative of the measurement instead avoids it.", "planted_error": false},
+ {"topic": "Derivative kick", "explanation": "Derivative kick happens when the actuator saturates, and you avoid it by raising Kd.", "planted_error": true},
+ {"topic": "Particle filter", "explanation": "A particle filter keeps weighted samples of the belief. It moves them with the motion model, weights them by the measurement likelihood and resamples.", "planted_error": false},
+ {"topic": "Particle filter", "explanation": "A particle filter can only represent a single Gaussian belief, so it cannot do global localization.", "planted_error": true},
+ {"topic": "Photosynthesis", "explanation": "Photosynthesis happens in the chloroplast. The Calvin cycle in the stroma fixes CO2 into sugar using rubisco.", "planted_error": false},
+ {"topic": "Photosynthesis", "explanation": "The light reactions happen in the stroma and they release carbon dioxide.", "planted_error": true},
+ {"topic": "Binary search trees", "explanation": "In a BST the left subtree holds smaller keys and the right subtree larger keys. A balanced tree keeps the height at O(log n).", "planted_error": false},
+ {"topic": "Binary search trees", "explanation": "Inserting sorted keys into a plain binary search tree keeps it perfectly balanced with height log n.", "planted_error": true},
+ {"topic": "Fermentation", "explanation": "Without oxygen, cells use fermentation to regenerate NAD+ so glycolysis keeps going. Muscle cells make lactate.", "planted_error": false},
+ {"topic": "Fermentation", "explanation": "Fermentation produces about 30 ATP, and yeast makes lactate.", "planted_error": true}
+]

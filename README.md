@@ -67,13 +67,27 @@ Settings (environment variables): `NOTEWISE_MODEL` (any Ollama model), `OLLAMA_H
 | qwen2.5:1.5b (default) | 4/6 | 5/6 | 64.0 | 0.0 |
 | qwen2.5:3b (optional) | 4/6 | 6/6 | 94.5 | 0.0 |
 
-Times are on a laptop RTX 4050 GPU. In this eval no claim from a planted explanation was marked "You got": the uncaught ones
+**Explain it back, held-out set** (`eval/check_items_heldout.json`: 12 new items on other topics, written after the
+tuning above and run once, with no changes made after seeing the results):
+
+| Model | Planted errors caught | Correct explanations not flagged | Mean score, correct | Mean score, planted |
+|---|---|---|---|---|
+| qwen2.5:1.5b (default) | 5/6 | 5/6 | 41.7 | 0.0 |
+| qwen2.5:3b (optional) | 4/6 | 5/6 | 83.3 | 16.7 |
+
+On the held-out set the 1.5B model is cautious: it catches most errors but often cannot verify correct claims either
+(they land in "Could not check", hence the low scores). The 3B model scores correct explanations higher, but once it
+accepted a wrong claim (R large means trust the measurement) as "You got". So a wrong claim can slip through:
+the check helps you find mistakes, it does not prove an explanation right.
+
+Times are on a laptop RTX 4050 GPU. In the tuning set no claim from a planted explanation was marked "You got": the uncaught ones
 landed in "Could not check", which is why planted explanations score 0 with both models. The first version of explain-it-back
 judged the whole paragraph in one prompt and caught **0/6** planted errors (the small model just restated the notes),
 which is why it now checks one claim at a time. The eval set is small and the claim checker was tuned while looking at these same 12 items, so these numbers are
 likely optimistic: treat them as a sanity check, not a benchmark.
 
-Reproduce: `.venv/bin/python eval/run_eval.py` and `.venv/bin/python eval/run_check_eval.py` (Ollama running).
+Reproduce: `.venv/bin/python eval/run_eval.py`, `.venv/bin/python eval/run_check_eval.py` and
+`.venv/bin/python eval/run_check_eval.py qwen2.5:1.5b eval/check_items_heldout.json` (Ollama running).
 The note sets in `sample_notes/` (controls, estimation, biology, data structures) were written for this project.
 
 ## Limits (honest list)

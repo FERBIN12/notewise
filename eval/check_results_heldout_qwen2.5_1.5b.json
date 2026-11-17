@@ -1,0 +1,249 @@
+{
+ "summary": {
+  "model": "qwen2.5:1.5b",
+  "planted_errors_caught": "5/6",
+  "correct_not_flagged": "5/6",
+  "mean_score_correct": 41.7,
+  "mean_score_planted": 0.0
+ },
+ "rows": [
+  {
+   "topic": "Kalman gain",
+   "explanation": "The Kalman gain decides how much to trust the measurement. When the measurement noise R is small the gain is large, so the filter follows the measurement.",
+   "planted_error": false,
+   "ok": false,
+   "score": 0,
+   "wrong": [
+    {
+     "claim": "The Kalman gain decides how much to trust the measurement",
+     "citation": "estimation.md#2",
+     "evidence": "The Kalman gain K weighs the measurement against the prediction."
+    },
+    {
+     "claim": "When the measurement noise R is small the gain is large, so the filter follows the measurement",
+     "citation": "estimation.md#2",
+     "evidence": "If R is small compared with the predicted covariance, K is large and the filter trusts the measurement."
+    }
+   ],
+   "missed": [],
+   "covered": [],
+   "seconds": 3.43
+  },
+  {
+   "topic": "Kalman gain",
+   "explanation": "When the measurement noise R is large the Kalman gain is large, so the filter trusts the measurement more.",
+   "planted_error": true,
+   "ok": true,
+   "score": 0,
+   "wrong": [
+    {
+     "claim": "When the measurement noise R is large the Kalman gain is large, so the filter trusts the measurement more",
+     "citation": "estimation.md#2",
+     "evidence": "If R is small compared with the predicted covariance, K is large and the filter trusts the measurement."
+    }
+   ],
+   "missed": [],
+   "covered": [],
+   "seconds": 1.6
+  },
+  {
+   "topic": "Derivative kick",
+   "explanation": "When the setpoint jumps, the derivative of the error spikes the output. Taking the derivative of the measurement instead avoids it.",
+   "planted_error": false,
+   "ok": true,
+   "score": 0,
+   "wrong": [],
+   "missed": [
+    {
+     "point": "A low-pass filter on the derivative reduces noise.",
+     "citation": "controls.md#3"
+    }
+   ],
+   "covered": [],
+   "seconds": 1.65
+  },
+  {
+   "topic": "Derivative kick",
+   "explanation": "Derivative kick happens when the actuator saturates, and you avoid it by raising Kd.",
+   "planted_error": true,
+   "ok": true,
+   "score": 0,
+   "wrong": [
+    {
+     "claim": "Derivative kick happens when the actuator saturates",
+     "citation": "controls.md#3",
+     "evidence": "Taking the derivative of the error makes the output spike when the setpoint jumps."
+    },
+    {
+     "claim": "you avoid it by raising Kd",
+     "citation": "controls.md#3",
+     "evidence": "Taking the derivative of the error makes the output spike when the setpoint jumps."
+    }
+   ],
+   "missed": [
+    {
+     "point": "Taking the derivative of the error makes the output spike when the setpoint jumps.",
+     "citation": "controls.md#3"
+    },
+    {
+     "point": "Using the derivative of the measurement instead of the error avoids it.",
+     "citation": "controls.md#3"
+    },
+    {
+     "point": "A low-pass filter on the derivative reduces noise.",
+     "citation": "controls.md#3"
+    }
+   ],
+   "covered": [],
+   "seconds": 2.93
+  },
+  {
+   "topic": "Particle filter",
+   "explanation": "A particle filter keeps weighted samples of the belief. It moves them with the motion model, weights them by the measurement likelihood and resamples.",
+   "planted_error": false,
+   "ok": true,
+   "score": 50,
+   "wrong": [],
+   "missed": [
+    {
+     "point": "It handles multimodal beliefs, such as global localization, but needs many particles in high dimensions.",
+     "citation": "estimation.md#4"
+    }
+   ],
+   "covered": [
+    "A particle filter keeps weighted samples of the belief"
+   ],
+   "seconds": 1.64
+  },
+  {
+   "topic": "Particle filter",
+   "explanation": "A particle filter can only represent a single Gaussian belief, so it cannot do global localization.",
+   "planted_error": true,
+   "ok": true,
+   "score": 0,
+   "wrong": [
+    {
+     "claim": "A particle filter can only represent a single Gaussian belief, so it cannot do global localization",
+     "citation": "estimation.md#4",
+     "evidence": "A particle filter represents the belief with weighted samples."
+    }
+   ],
+   "missed": [
+    {
+     "point": "Each step moves the particles with the motion model, weights them by the measurement likelihood and resamples.",
+     "citation": "estimation.md#4"
+    },
+    {
+     "point": "It handles multimodal beliefs, such as global localization, but needs many particles in high dimensions.",
+     "citation": "estimation.md#4"
+    }
+   ],
+   "covered": [],
+   "seconds": 1.63
+  },
+  {
+   "topic": "Photosynthesis",
+   "explanation": "Photosynthesis happens in the chloroplast. The Calvin cycle in the stroma fixes CO2 into sugar using rubisco.",
+   "planted_error": false,
+   "ok": true,
+   "score": 100,
+   "wrong": [],
+   "missed": [
+    {
+     "point": "The light reactions in the thylakoid membranes split water, release oxygen and make ATP and NADPH.",
+     "citation": "biology.md#6"
+    }
+   ],
+   "covered": [
+    "Photosynthesis happens in the chloroplast",
+    "The Calvin cycle in the stroma fixes CO2 into sugar using rubisco"
+   ],
+   "seconds": 1.52
+  },
+  {
+   "topic": "Photosynthesis",
+   "explanation": "The light reactions happen in the stroma and they release carbon dioxide.",
+   "planted_error": true,
+   "ok": true,
+   "score": 0,
+   "wrong": [
+    {
+     "claim": "The light reactions happen in the stroma and they release carbon dioxide",
+     "citation": "biology.md#6",
+     "evidence": "The Calvin cycle in the stroma uses that ATP and NADPH to fix CO2 into sugar, with the enzyme rubisco doing the carbon fixation step."
+    }
+   ],
+   "missed": [
+    {
+     "point": "Photosynthesis in the chloroplast stores light energy in sugar.",
+     "citation": "biology.md#6"
+    },
+    {
+     "point": "The Calvin cycle in the stroma uses that ATP and NADPH to fix CO2 into sugar, with the enzyme rubisco doing the carbon fixation step.",
+     "citation": "biology.md#6"
+    }
+   ],
+   "covered": [],
+   "seconds": 1.64
+  },
+  {
+   "topic": "Binary search trees",
+   "explanation": "In a BST the left subtree holds smaller keys and the right subtree larger keys. A balanced tree keeps the height at O(log n).",
+   "planted_error": false,
+   "ok": true,
+   "score": 50,
+   "wrong": [],
+   "missed": [],
+   "covered": [
+    "A balanced tree keeps the height at O(log n)"
+   ],
+   "seconds": 1.79
+  },
+  {
+   "topic": "Binary search trees",
+   "explanation": "Inserting sorted keys into a plain binary search tree keeps it perfectly balanced with height log n.",
+   "planted_error": true,
+   "ok": false,
+   "score": 0,
+   "wrong": [],
+   "missed": [],
+   "covered": [],
+   "seconds": 1.13
+  },
+  {
+   "topic": "Fermentation",
+   "explanation": "Without oxygen, cells use fermentation to regenerate NAD+ so glycolysis keeps going. Muscle cells make lactate.",
+   "planted_error": false,
+   "ok": true,
+   "score": 50,
+   "wrong": [],
+   "missed": [],
+   "covered": [
+    "Without oxygen, cells use fermentation to regenerate NAD+ so glycolysis keeps going"
+   ],
+   "seconds": 1.61
+  },
+  {
+   "topic": "Fermentation",
+   "explanation": "Fermentation produces about 30 ATP, and yeast makes lactate.",
+   "planted_error": true,
+   "ok": true,
+   "score": 0,
+   "wrong": [
+    {
+     "claim": "Fermentation produces about 30 ATP",
+     "citation": "biology.md#5",
+     "evidence": "Fermentation yields only the 2 ATP from glycolysis."
+    }
+   ],
+   "missed": [
+    {
+     "point": "Without oxygen, cells regenerate NAD+ by fermentation so glycolysis can keep running.",
+     "citation": "biology.md#5"
+    }
+   ],
+   "covered": [],
+   "seconds": 2.22
+  }
+ ]
+}
