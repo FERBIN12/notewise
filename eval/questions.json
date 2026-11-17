@@ -1,0 +1,16 @@
+[
+ {"q": "What causes integral windup?", "answerable": true, "expect": "controls.md#2"},
+ {"q": "How do you avoid derivative kick?", "answerable": true, "expect": "controls.md#3"},
+ {"q": "How much overshoot does Ziegler-Nichols tuning usually give?", "answerable": true, "expect": "controls.md#4"},
+ {"q": "What does the predict step of a Kalman filter do?", "answerable": true, "expect": "estimation.md#1"},
+ {"q": "When does the Kalman filter trust the measurement more?", "answerable": true, "expect": "estimation.md#2"},
+ {"q": "Why can an EKF diverge?", "answerable": true, "expect": "estimation.md#3"},
+ {"q": "What are the three steps of a particle filter?", "answerable": true, "expect": "estimation.md#4"},
+ {"q": "What does the proportional term multiply?", "answerable": true, "expect": "controls.md#1"},
+ {"q": "What is the unscented Kalman filter's sigma point rule?", "answerable": false},
+ {"q": "How do you tune an LQR controller's Q and R matrices?", "answerable": false},
+ {"q": "Who invented the PID controller?", "answerable": false},
+ {"q": "What is the capital of France?", "answerable": false},
+ {"q": "What learning rate should I use for Adam?", "answerable": false},
+ {"q": "How many particles does AMCL use by default in ROS?", "answerable": false}
+]

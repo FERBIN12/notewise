@@ -1,0 +1,176 @@
+{
+ "summary": {
+  "model": "qwen2.5:1.5b",
+  "answerable_correct_citation": "7/8",
+  "unanswerable_abstained": "6/6",
+  "median_seconds": 0.93
+ },
+ "rows": [
+  {
+   "q": "What causes integral windup?",
+   "answerable": true,
+   "expect": "controls.md#2",
+   "ok": true,
+   "in_notes": true,
+   "citations": [
+    "controls.md#2"
+   ],
+   "guard": null,
+   "answer": "Integral windup occurs when an actuator saturates, causing the integral term to continue growing even as the output cannot change. This results in large overshoot once the error changes sign and is a common issue that can be addressed by clamping the integrator or stopping integration while the output is saturated.",
+   "seconds": 1.1
+  },
+  {
+   "q": "How do you avoid derivative kick?",
+   "answerable": true,
+   "expect": "controls.md#3",
+   "ok": true,
+   "in_notes": true,
+   "citations": [
+    "controls.md#3"
+   ],
+   "guard": null,
+   "answer": "To avoid derivative kick in PID control, use the derivative of the measurement instead of the error. This reduces the spike that occurs when the setpoint jumps.",
+   "seconds": 1.0
+  },
+  {
+   "q": "How much overshoot does Ziegler-Nichols tuning usually give?",
+   "answerable": true,
+   "expect": "controls.md#4",
+   "ok": true,
+   "in_notes": true,
+   "citations": [
+    "controls.md#4"
+   ],
+   "guard": null,
+   "answer": "Ziegler-Nichols tuning tends to give an aggressive response with about 25 percent overshoot.",
+   "seconds": 0.67
+  },
+  {
+   "q": "What does the predict step of a Kalman filter do?",
+   "answerable": true,
+   "expect": "estimation.md#1",
+   "ok": true,
+   "in_notes": true,
+   "citations": [
+    "estimation.md#1"
+   ],
+   "guard": null,
+   "answer": "The predict step of a Kalman filter pushes the state estimate through the motion model and grows the covariance by the process noise Q.",
+   "seconds": 0.77
+  },
+  {
+   "q": "When does the Kalman filter trust the measurement more?",
+   "answerable": true,
+   "expect": "estimation.md#2",
+   "ok": true,
+   "in_notes": true,
+   "citations": [
+    "estimation.md#2"
+   ],
+   "guard": null,
+   "answer": "The Kalman filter trusts the measurement more when the measurement noise R is small compared with the predicted covariance. This ensures that the filter's prediction is not overly influenced by the linearization error, which can occur due to large heading errors.",
+   "seconds": 1.04
+  },
+  {
+   "q": "Why can an EKF diverge?",
+   "answerable": true,
+   "expect": "estimation.md#3",
+   "ok": false,
+   "in_notes": false,
+   "citations": [],
+   "guard": "citation",
+   "answer": "I could not ground an answer in your notes.",
+   "seconds": 1.28
+  },
+  {
+   "q": "What are the three steps of a particle filter?",
+   "answerable": true,
+   "expect": "estimation.md#4",
+   "ok": true,
+   "in_notes": true,
+   "citations": [
+    "estimation.md#4"
+   ],
+   "guard": null,
+   "answer": "A particle filter represents the belief with weighted samples. Each step moves the particles with the motion model, weights them by the measurement likelihood and resamples.",
+   "seconds": 0.82
+  },
+  {
+   "q": "What does the proportional term multiply?",
+   "answerable": true,
+   "expect": "controls.md#1",
+   "ok": true,
+   "in_notes": true,
+   "citations": [
+    "controls.md#1"
+   ],
+   "guard": null,
+   "answer": "The proportional term multiplies the error between the setpoint and the measured value.",
+   "seconds": 0.68
+  },
+  {
+   "q": "What is the unscented Kalman filter's sigma point rule?",
+   "answerable": false,
+   "ok": true,
+   "in_notes": false,
+   "citations": [],
+   "guard": "citation",
+   "answer": "I could not ground an answer in your notes.",
+   "seconds": 1.17
+  },
+  {
+   "q": "How do you tune an LQR controller's Q and R matrices?",
+   "answerable": false,
+   "ok": true,
+   "in_notes": false,
+   "citations": [],
+   "guard": "citation",
+   "answer": "I could not ground an answer in your notes.",
+   "seconds": 1.07
+  },
+  {
+   "q": "Who invented the PID controller?",
+   "answerable": false,
+   "ok": true,
+   "in_notes": false,
+   "citations": [
+    "controls.md#1"
+   ],
+   "guard": null,
+   "answer": "The PID controller was not invented by any single individual but is an extension of earlier proportional-integral controllers. It was developed in the 1940s and has since become a fundamental component in control systems for its effectiveness at minimizing error over time.",
+   "seconds": 0.93
+  },
+  {
+   "q": "What is the capital of France?",
+   "answerable": false,
+   "ok": true,
+   "in_notes": false,
+   "citations": [],
+   "guard": "retrieval",
+   "answer": "That is not in your notes.",
+   "seconds": 0.0
+  },
+  {
+   "q": "What learning rate should I use for Adam?",
+   "answerable": false,
+   "ok": true,
+   "in_notes": false,
+   "citations": [
+    "controls.md#1"
+   ],
+   "guard": null,
+   "answer": "The learning rate in Adam is typically set to 0.001 or a value between 0.001 and 0.1.",
+   "seconds": 0.69
+  },
+  {
+   "q": "How many particles does AMCL use by default in ROS?",
+   "answerable": false,
+   "ok": true,
+   "in_notes": false,
+   "citations": [],
+   "guard": "citation",
+   "answer": "I could not ground an answer in your notes.",
+   "seconds": 0.7
+  }
+ ]
+}

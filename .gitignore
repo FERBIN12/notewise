@@ -1,0 +1,10 @@
+node_modules/
+.venv/
+__pycache__/
+*.mp4
+*.wav
+*.png
+*.gif
+PLAN.md
+STATE.md
+.env
