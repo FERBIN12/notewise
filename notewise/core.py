@@ -80,10 +80,11 @@ reply as JSON: {"in_notes": true|false, "question": "one guiding question that l
 Citations must be copied exactly from the chunk ids in square brackets, e.g. "controls.md#2".
 If the notes do not cover it, set in_notes false and say so in question."""
 
-CHECK_SYS = """You are Notewise checking a student's understanding. Compare the student's explanation with the notes below.
-Reply as JSON: {"covered": ["key point the student got right", ...], "missed": [{"point": "...", "citation": chunk id}, ...],
-"wrong": [{"claim": "student claim that contradicts the notes", "citation": chunk id}, ...], "score": 0-100}.
-Use only the notes. Be encouraging but exact."""
+CLAIM_SYS = """You are a strict fact checker for a student's study notes. You get NOTES and ONE student CLAIM.
+Decide if the notes support the claim, contradict it, or do not mention it. A claim is contradicted if ANY part of it
+disagrees with the notes (a different place, number, cause, name, or fix). Reply as JSON:
+{"verdict": "supported" | "contradicted" | "not_in_notes", "citation": "chunk id", "evidence": "the sentence copied
+exactly from the notes", "correction": "what the notes say instead (only if contradicted)"}."""
 
 class LLM:
     """Ollama chat client (local model, notes never leave the machine)."""
@@ -133,14 +134,60 @@ def ask(nb: Notebook, llm, question: str, mode: str = "answer") -> dict:
     out["sources"] = [{"id": c.id, "heading": c.heading, "lines": c.lines, "text": c.text} for c, _ in hits if c.id in out["citations"]]
     return out
 
+PAIR_SYS = """Compare two sentences. A is from the student's notes, B is the student's claim.
+Answer as JSON {"disagree": true|false, "why": "..."}. disagree is true ONLY if B states a fact that A says is false
+(for example a different place, number, direction, cause or method). If B just says less than A, or says the same
+thing in other words, disagree is false."""
+
+def _contained(claim: str, text: str) -> float:
+    c = set(tokens(claim))
+    return len(c & set(tokens(text))) / len(c) if c else 0.0
+
+SENT = re.compile(r"(?<=[.!?])\s+|;\s+|,\s+(?:and|but)\s+")
+
+PRONOUN = re.compile(r"^(it|they|this|these)\s+", re.I)
+
+def split_claims(text: str) -> list[str]:
+    """Deterministic split of a student explanation into short claims (sentences, '; ', ', and ', ', but ')."""
+    return [c.strip(" .") for c in SENT.split(text.strip()) if len(tokens(c)) >= 2]
+
 def check_understanding(nb: Notebook, llm, topic: str, explanation: str) -> dict:
-    hits = nb.search(topic + " " + explanation, k=5)
-    if not hits:
-        return {"covered": [], "missed": [], "wrong": [], "score": 0, "guard": "retrieval"}
-    out = llm.json_chat(CHECK_SYS, f"NOTES:\n{context_block(hits)}\n\nCHUNK IDS: {', '.join(c.id for c, _ in hits)}\n\nTOPIC: {topic}\nSTUDENT EXPLANATION: {explanation}")
-    allowed = {c.id for c, _ in hits}
-    for key in ("missed", "wrong"):
-        out[key] = [{**m, "citation": _norm(m.get("citation"))} for m in out.get(key, []) if isinstance(m, dict) and _norm(m.get("citation")) in allowed]
-    out.setdefault("covered", []); out["score"] = int(out.get("score", 0) or 0)
-    out["sources"] = {c.id: {"heading": c.heading, "lines": c.lines, "text": c.text} for c, _ in hits}
-    return out
+    """Explain-it-back: every claim is checked on its own against retrieved notes (small models judge one claim
+    far better than a whole paragraph), and every verdict must quote evidence that is really in the cited chunk."""
+    topic_hits = nb.search(topic + " " + explanation, k=3)
+    if not topic_hits:
+        return {"covered": [], "missed": [], "wrong": [], "unverified": [], "score": 0, "guard": "retrieval", "sources": {}}
+    covered, wrong, unverified, used = [], [], [], {}
+    own = nb.search(topic, k=1)   # the chunk about the topic itself always comes first
+    for claim in split_claims(explanation):
+        # "it makes 30 ATP" -> "Glycolysis makes 30 ATP": a claim cut out of its paragraph keeps its subject
+        full = PRONOUN.sub(topic + " ", claim, count=1)
+        hits = list({c.id: (c, sc) for c, sc in own + (nb.search(topic + " " + full, k=3) or topic_hits)}.values())[:4]
+        allowed = {c.id: c for c, _ in hits}
+        out = llm.json_chat(CLAIM_SYS, f"NOTES:\n{context_block(hits)}\n\nCHUNK IDS: {', '.join(allowed)}\n\nCLAIM: {full}")
+        verdict, cid, ev = str(out.get("verdict", "")).lower(), _norm(out.get("citation")), str(out.get("evidence", ""))
+        chunk = allowed.get(cid)
+        ev_ok = bool(chunk) and bool(tokens(ev)) and len(set(tokens(ev)) & set(tokens(chunk.text))) / len(set(tokens(ev))) >= 0.6
+        if ev_ok:   # show the real note sentence, never the model's paraphrase of it
+            sents = re.split(r"(?<=[.!?])\s+", chunk.text); evt = set(tokens(ev))
+            quoted = [x for x in sents if tokens(x) and len(set(tokens(x)) & evt) / len(set(tokens(x))) >= 0.5]
+            focus = set(tokens(full + " " + str(out.get("correction", ""))))   # used only to rank real note sentences
+            ev = max(quoted or sents, key=lambda x: (len(set(tokens(x)) & focus), len(set(tokens(x)) & evt)))
+        if verdict == "supported" and ev_ok:
+            covered.append(claim); used[cid] = chunk
+        elif verdict == "contradicted" and ev_ok and _contained(claim, chunk.text) < 0.8 \
+                and llm.json_chat(PAIR_SYS, f"A: {ev}\nB: {full}").get("disagree") is True:
+            wrong.append({"claim": claim, "citation": cid, "evidence": ev}); used[cid] = chunk
+        else:
+            unverified.append(claim)
+    # missed: sentences of the best-matching note chunk that share almost no words with the explanation
+    exp = set(tokens(explanation)); top = topic_hits[0][0]; missed = []
+    for sent in re.split(r"(?<=[.!?])\s+", top.text):
+        st = set(tokens(sent))
+        if len(st) >= 3 and len(st & exp) / len(st) < 0.25:
+            missed.append({"point": sent, "citation": top.id})
+    used.setdefault(top.id, top)
+    n = len(covered) + len(wrong) + len(unverified)
+    score = round(100 * len(covered) / n) if n else 0
+    return {"covered": covered, "missed": missed[:3], "wrong": wrong, "unverified": unverified, "score": score,
+            "sources": {c.id: {"heading": c.heading, "lines": c.lines, "text": c.text} for c in used.values()}}

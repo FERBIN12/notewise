@@ -1,0 +1,263 @@
+{
+ "summary": {
+  "model": "qwen2.5:1.5b",
+  "planted_errors_caught": "4/6",
+  "correct_not_flagged": "5/6",
+  "mean_score_correct": 64.0,
+  "mean_score_planted": 0.0
+ },
+ "rows": [
+  {
+   "topic": "Integral windup",
+   "explanation": "When the actuator saturates the integral term keeps growing, which causes big overshoot later. You can fix it by clamping the integrator.",
+   "planted_error": false,
+   "ok": false,
+   "score": 0,
+   "wrong": [
+    {
+     "claim": "You can fix it by clamping the integrator",
+     "citation": "controls.md#2",
+     "evidence": "When the actuator saturates, the integral term keeps growing even though the output cannot change."
+    }
+   ],
+   "missed": [
+    {
+     "point": "Common fixes are clamping the integrator or stopping integration while the output is saturated (conditional integration).",
+     "citation": "controls.md#2"
+    }
+   ],
+   "covered": [],
+   "seconds": 3.05
+  },
+  {
+   "topic": "Integral windup",
+   "explanation": "Integral windup happens when the derivative gain is too high, and the fix is to raise Ki.",
+   "planted_error": true,
+   "ok": true,
+   "score": 0,
+   "wrong": [
+    {
+     "claim": "the fix is to raise Ki",
+     "citation": "controls.md#2",
+     "evidence": "This is called integral windup and it causes large overshoot once the error changes sign."
+    }
+   ],
+   "missed": [
+    {
+     "point": "When the actuator saturates, the integral term keeps growing even though the output cannot change.",
+     "citation": "controls.md#2"
+    },
+    {
+     "point": "This is called integral windup and it causes large overshoot once the error changes sign.",
+     "citation": "controls.md#2"
+    },
+    {
+     "point": "Common fixes are clamping the integrator or stopping integration while the output is saturated (conditional integration).",
+     "citation": "controls.md#2"
+    }
+   ],
+   "covered": [],
+   "seconds": 2.67
+  },
+  {
+   "topic": "Glycolysis",
+   "explanation": "Glycolysis happens in the cytoplasm without oxygen and splits glucose into two pyruvates, netting 2 ATP and 2 NADH.",
+   "planted_error": false,
+   "ok": true,
+   "score": 100,
+   "wrong": [],
+   "missed": [],
+   "covered": [
+    "Glycolysis happens in the cytoplasm without oxygen and splits glucose into two pyruvates, netting 2 ATP and 2 NADH"
+   ],
+   "seconds": 1.02
+  },
+  {
+   "topic": "Glycolysis",
+   "explanation": "Glycolysis happens inside the mitochondria and needs oxygen, and it makes about 30 ATP.",
+   "planted_error": true,
+   "ok": true,
+   "score": 0,
+   "wrong": [
+    {
+     "claim": "Glycolysis happens inside the mitochondria and needs oxygen",
+     "citation": "biology.md#2",
+     "evidence": "Glycolysis happens in the cytoplasm and does not need oxygen."
+    },
+    {
+     "claim": "it makes about 30 ATP",
+     "citation": "biology.md#2",
+     "evidence": "The net gain is 2 ATP and 2 NADH per glucose."
+    }
+   ],
+   "missed": [
+    {
+     "point": "It splits one glucose (6 carbons) into two pyruvate molecules (3 carbons each).",
+     "citation": "biology.md#2"
+    },
+    {
+     "point": "The net gain is 2 ATP and 2 NADH per glucose.",
+     "citation": "biology.md#2"
+    }
+   ],
+   "covered": [],
+   "seconds": 2.86
+  },
+  {
+   "topic": "Electron transport chain",
+   "explanation": "Proteins in the inner mitochondrial membrane pump protons, and ATP synthase uses the proton flow back to make ATP. Oxygen is the final electron acceptor and forms water.",
+   "planted_error": false,
+   "ok": true,
+   "score": 67,
+   "wrong": [],
+   "missed": [],
+   "covered": [
+    "ATP synthase uses the proton flow back to make ATP",
+    "Oxygen is the final electron acceptor and forms water"
+   ],
+   "seconds": 2.72
+  },
+  {
+   "topic": "Electron transport chain",
+   "explanation": "The electron transport chain is in the chloroplast and carbon dioxide is the final electron acceptor.",
+   "planted_error": true,
+   "ok": true,
+   "score": 0,
+   "wrong": [
+    {
+     "claim": "The electron transport chain is in the chloroplast and carbon dioxide is the final electron acceptor",
+     "citation": "biology.md#6",
+     "evidence": "Photosynthesis in the chloroplast stores light energy in sugar."
+    }
+   ],
+   "missed": [
+    {
+     "point": "NADH and FADH2 hand their electrons to a chain of proteins that pump protons into the intermembrane space.",
+     "citation": "biology.md#4"
+    },
+    {
+     "point": "Protons flow back through ATP synthase, which uses that flow to make most of the cell's ATP.",
+     "citation": "biology.md#4"
+    }
+   ],
+   "covered": [],
+   "seconds": 1.25
+  },
+  {
+   "topic": "Hash tables",
+   "explanation": "A hash function maps keys to buckets for average O(1) lookups. Collisions are handled with chaining or open addressing, and the table resizes when the load factor is high.",
+   "planted_error": false,
+   "ok": true,
+   "score": 67,
+   "wrong": [],
+   "missed": [],
+   "covered": [
+    "A hash function maps keys to buckets for average O(1) lookups",
+    "Collisions are handled with chaining or open addressing"
+   ],
+   "seconds": 2.86
+  },
+  {
+   "topic": "Hash tables",
+   "explanation": "Hash tables keep keys sorted, so lookup is O(log n), and collisions are impossible with a good hash.",
+   "planted_error": true,
+   "ok": true,
+   "score": 0,
+   "wrong": [
+    {
+     "claim": "Hash tables keep keys sorted, so lookup is O(log n)",
+     "citation": "data_structures.md#2",
+     "evidence": "A hash table maps keys to buckets with a hash function, giving average O(1) lookup, insert and delete."
+    }
+   ],
+   "missed": [
+    {
+     "point": "Collisions happen when two keys land in the same bucket; chaining keeps a list per bucket, open addressing probes for a free slot.",
+     "citation": "data_structures.md#2"
+    },
+    {
+     "point": "When the load factor grows too high, the table is resized and every key is rehashed.",
+     "citation": "data_structures.md#2"
+    }
+   ],
+   "covered": [],
+   "seconds": 3.28
+  },
+  {
+   "topic": "Breadth-first search",
+   "explanation": "BFS uses a queue and visits nodes by distance in edges, so it finds shortest paths in unweighted graphs.",
+   "planted_error": false,
+   "ok": true,
+   "score": 100,
+   "wrong": [],
+   "missed": [
+    {
+     "point": "Depth-first search uses a stack (or recursion) and goes as deep as possible before backtracking; it is used for cycle detection and topological sorting.",
+     "citation": "data_structures.md#5"
+    },
+    {
+     "point": "Both run in O(V + E) with an adjacency list.",
+     "citation": "data_structures.md#5"
+    }
+   ],
+   "covered": [
+    "BFS uses a queue and visits nodes by distance in edges, so it finds shortest paths in unweighted graphs"
+   ],
+   "seconds": 0.79
+  },
+  {
+   "topic": "Breadth-first search",
+   "explanation": "BFS uses a stack and goes as deep as possible first, and it finds shortest paths in weighted graphs.",
+   "planted_error": true,
+   "ok": false,
+   "score": 0,
+   "wrong": [],
+   "missed": [
+    {
+     "point": "Both run in O(V + E) with an adjacency list.",
+     "citation": "data_structures.md#5"
+    }
+   ],
+   "covered": [],
+   "seconds": 1.92
+  },
+  {
+   "topic": "Binary heaps",
+   "explanation": "A min-heap stores a complete tree in an array, the minimum is read in O(1), and push and pop take O(log n).",
+   "planted_error": false,
+   "ok": true,
+   "score": 50,
+   "wrong": [],
+   "missed": [
+    {
+     "point": "Heaps implement priority queues, used for example in Dijkstra's shortest path algorithm.",
+     "citation": "data_structures.md#4"
+    }
+   ],
+   "covered": [
+    "A min-heap stores a complete tree in an array, the minimum is read in O(1)"
+   ],
+   "seconds": 1.78
+  },
+  {
+   "topic": "Binary heaps",
+   "explanation": "In a min-heap every parent is larger than its children and popping the minimum is O(1).",
+   "planted_error": true,
+   "ok": false,
+   "score": 0,
+   "wrong": [],
+   "missed": [
+    {
+     "point": "Reading the minimum is O(1); push and pop are O(log n) because an element sifts up or down one level at a time.",
+     "citation": "data_structures.md#4"
+    },
+    {
+     "point": "Heaps implement priority queues, used for example in Dijkstra's shortest path algorithm.",
+     "citation": "data_structures.md#4"
+    }
+   ],
+   "covered": [],
+   "seconds": 1.13
+  }
+ ]
+}

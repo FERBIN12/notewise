@@ -1,0 +1,530 @@
+{
+ "summary": {
+  "model": "qwen2.5:3b",
+  "answerable_correct_citation": "26/28",
+  "unanswerable_abstained": "16/16",
+  "median_seconds": 0.88
+ },
+ "rows": [
+  {
+   "q": "What causes integral windup?",
+   "answerable": true,
+   "expect": "controls.md#2",
+   "ok": true,
+   "in_notes": true,
+   "citations": [
+    "controls.md#2"
+   ],
+   "guard": null,
+   "answer": "Integral windup occurs when the actuator saturates, causing the integral term to keep growing even though the output cannot change. This leads to large overshoot once the error changes sign.",
+   "seconds": 3.89
+  },
+  {
+   "q": "How do you avoid derivative kick?",
+   "answerable": true,
+   "expect": "controls.md#3",
+   "ok": true,
+   "in_notes": true,
+   "citations": [
+    "controls.md#3"
+   ],
+   "guard": null,
+   "answer": "To avoid derivative kick, use the derivative of the measurement instead of the error. A low-pass filter on the derivative can also reduce noise.",
+   "seconds": 0.99
+  },
+  {
+   "q": "How much overshoot does Ziegler-Nichols tuning usually give?",
+   "answerable": true,
+   "expect": "controls.md#4",
+   "ok": true,
+   "in_notes": true,
+   "citations": [
+    "controls.md#4"
+   ],
+   "guard": null,
+   "answer": "Ziegler-Nichols tuning gives an aggressive response with about 25 percent overshoot.",
+   "seconds": 0.86
+  },
+  {
+   "q": "What does the predict step of a Kalman filter do?",
+   "answerable": true,
+   "expect": "estimation.md#1",
+   "ok": true,
+   "in_notes": true,
+   "citations": [
+    "estimation.md#1"
+   ],
+   "guard": null,
+   "answer": "The predict step pushes the state estimate through the motion model and grows the covariance by the process noise Q.",
+   "seconds": 0.94
+  },
+  {
+   "q": "When does the Kalman filter trust the measurement more?",
+   "answerable": true,
+   "expect": "estimation.md#2",
+   "ok": true,
+   "in_notes": true,
+   "citations": [
+    "estimation.md#2"
+   ],
+   "guard": null,
+   "answer": "The Kalman gain K is large when R (measurement noise) is small compared with the predicted covariance, indicating that the filter trusts the measurement more.",
+   "seconds": 1.16
+  },
+  {
+   "q": "Why can an EKF diverge?",
+   "answerable": true,
+   "expect": "estimation.md#3",
+   "ok": true,
+   "in_notes": true,
+   "citations": [
+    "estimation.md#3"
+   ],
+   "guard": null,
+   "answer": "An Extended Kalman Filter (EKF) can diverge when it fails to accurately linearize the nonlinear models around the current estimate, especially with large heading errors.",
+   "seconds": 1.07
+  },
+  {
+   "q": "What are the three steps of a particle filter?",
+   "answerable": true,
+   "expect": "estimation.md#4",
+   "ok": true,
+   "in_notes": true,
+   "citations": [
+    "estimation.md#4"
+   ],
+   "guard": null,
+   "answer": "A particle filter represents belief with weighted samples. Each step moves the particles with the motion model, weights them by the measurement likelihood and resamples.",
+   "seconds": 1.39
+  },
+  {
+   "q": "What does the proportional term multiply?",
+   "answerable": true,
+   "expect": "controls.md#1",
+   "ok": true,
+   "in_notes": true,
+   "citations": [
+    "controls.md#1"
+   ],
+   "guard": null,
+   "answer": "The proportional term multiplies the error.",
+   "seconds": 0.72
+  },
+  {
+   "q": "What is the unscented Kalman filter's sigma point rule?",
+   "answerable": false,
+   "ok": true,
+   "in_notes": false,
+   "citations": [],
+   "guard": null,
+   "answer": "That is not in your notes.",
+   "seconds": 0.72
+  },
+  {
+   "q": "How do you tune an LQR controller's Q and R matrices?",
+   "answerable": false,
+   "ok": true,
+   "in_notes": false,
+   "citations": [],
+   "guard": null,
+   "answer": "The tuning of LQR (Linear Quadratic Regulator) controller's Q and R matrices involves adjusting them based on the system dynamics to optimize performance. The Q matrix penalizes states that are far from their desired values, while the R matrix penalizes control inputs or actions.",
+   "seconds": 1.4
+  },
+  {
+   "q": "Who invented the PID controller?",
+   "answerable": false,
+   "ok": true,
+   "in_notes": false,
+   "citations": [],
+   "guard": null,
+   "answer": "That is not in your notes.",
+   "seconds": 0.66
+  },
+  {
+   "q": "What is the capital of France?",
+   "answerable": false,
+   "ok": true,
+   "in_notes": false,
+   "citations": [],
+   "guard": "retrieval",
+   "answer": "That is not in your notes.",
+   "seconds": 0.0
+  },
+  {
+   "q": "What learning rate should I use for Adam?",
+   "answerable": false,
+   "ok": true,
+   "in_notes": false,
+   "citations": [],
+   "guard": null,
+   "answer": "That is not in your notes.",
+   "seconds": 0.62
+  },
+  {
+   "q": "How many particles does AMCL use by default in ROS?",
+   "answerable": false,
+   "ok": true,
+   "in_notes": false,
+   "citations": [],
+   "guard": null,
+   "answer": "That is not in your notes.",
+   "seconds": 0.64
+  },
+  {
+   "q": "Where in the cell does glycolysis happen?",
+   "answerable": true,
+   "expect": "biology.md#2",
+   "ok": true,
+   "in_notes": true,
+   "citations": [
+    "biology.md#2"
+   ],
+   "guard": null,
+   "answer": "Glycolysis happens in the cytoplasm.",
+   "seconds": 0.77
+  },
+  {
+   "q": "What is the net ATP gain of glycolysis?",
+   "answerable": true,
+   "expect": "biology.md#2",
+   "ok": true,
+   "in_notes": true,
+   "citations": [
+    "biology.md#2"
+   ],
+   "guard": null,
+   "answer": "Glycolysis produces a net gain of 2 ATP and 2 NADH per glucose molecule.",
+   "seconds": 0.93
+  },
+  {
+   "q": "What does pyruvate get converted to before the Krebs cycle?",
+   "answerable": true,
+   "expect": "biology.md#3",
+   "ok": true,
+   "in_notes": true,
+   "citations": [
+    "biology.md#3"
+   ],
+   "guard": null,
+   "answer": "Pyruvate gets converted to acetyl-CoA before entering the Krebs cycle.",
+   "seconds": 0.93
+  },
+  {
+   "q": "Why does the Krebs cycle turn twice per glucose?",
+   "answerable": true,
+   "expect": "biology.md#3",
+   "ok": true,
+   "in_notes": true,
+   "citations": [
+    "biology.md#3"
+   ],
+   "guard": null,
+   "answer": "The Krebs cycle turns twice per glucose because glycolysis produces two pyruvate molecules from one glucose molecule. Each turn of the cycle yields two ATP (or GTP) and two NADH.",
+   "seconds": 1.21
+  },
+  {
+   "q": "What is the final electron acceptor in the electron transport chain?",
+   "answerable": true,
+   "expect": "biology.md#4",
+   "ok": true,
+   "in_notes": true,
+   "citations": [
+    "biology.md#4"
+   ],
+   "guard": null,
+   "answer": "Oxygen is the final electron acceptor and combines with protons to form water.",
+   "seconds": 0.87
+  },
+  {
+   "q": "What enzyme makes most of the ATP using the proton flow?",
+   "answerable": true,
+   "expect": "biology.md#4",
+   "ok": true,
+   "in_notes": true,
+   "citations": [
+    "biology.md#4"
+   ],
+   "guard": null,
+   "answer": "ATP synthase uses the proton flow back through it to make most of the cell's ATP.",
+   "seconds": 0.95
+  },
+  {
+   "q": "What do muscle cells make during fermentation?",
+   "answerable": true,
+   "expect": "biology.md#5",
+   "ok": true,
+   "in_notes": true,
+   "citations": [
+    "biology.md#5"
+   ],
+   "guard": null,
+   "answer": "Muscle cells make lactate during fermentation.",
+   "seconds": 0.78
+  },
+  {
+   "q": "How many ATP does fermentation yield?",
+   "answerable": true,
+   "expect": "biology.md#5",
+   "ok": true,
+   "in_notes": true,
+   "citations": [
+    "biology.md#5"
+   ],
+   "guard": null,
+   "answer": "Fermentation yields only the 2 ATP from glycolysis.",
+   "seconds": 0.83
+  },
+  {
+   "q": "Which enzyme fixes carbon in the Calvin cycle?",
+   "answerable": true,
+   "expect": "biology.md#6",
+   "ok": true,
+   "in_notes": true,
+   "citations": [
+    "biology.md#6"
+   ],
+   "guard": null,
+   "answer": "The enzyme rubisco does the carbon fixation step in the Calvin cycle.",
+   "seconds": 0.88
+  },
+  {
+   "q": "What are the three stages of cellular respiration?",
+   "answerable": true,
+   "expect": "biology.md#1",
+   "ok": true,
+   "in_notes": true,
+   "citations": [
+    "biology.md#1"
+   ],
+   "guard": null,
+   "answer": "Cellular respiration has three main stages: glycolysis, the Krebs cycle (citric acid cycle), and the electron transport chain.",
+   "seconds": 1.01
+  },
+  {
+   "q": "Why is inserting in the middle of an array slow?",
+   "answerable": true,
+   "expect": "data_structures.md#1",
+   "ok": true,
+   "in_notes": true,
+   "citations": [
+    "data_structures.md#1"
+   ],
+   "guard": null,
+   "answer": "Inserting in the middle of an array is O(n) because later elements must shift to fill the gap.",
+   "seconds": 0.97
+  },
+  {
+   "q": "How fast is finding the i-th element of a linked list?",
+   "answerable": true,
+   "expect": "data_structures.md#1",
+   "ok": false,
+   "in_notes": false,
+   "citations": [],
+   "guard": null,
+   "answer": null,
+   "seconds": 3.98
+  },
+  {
+   "q": "What happens when the hash table load factor gets too high?",
+   "answerable": true,
+   "expect": "data_structures.md#2",
+   "ok": true,
+   "in_notes": true,
+   "citations": [
+    "data_structures.md#2"
+   ],
+   "guard": null,
+   "answer": "When the load factor of a hash table grows too high, it is resized and every key is rehashed.",
+   "seconds": 0.98
+  },
+  {
+   "q": "What is the difference between chaining and open addressing?",
+   "answerable": true,
+   "expect": "data_structures.md#2",
+   "ok": true,
+   "in_notes": true,
+   "citations": [
+    "data_structures.md#2"
+   ],
+   "guard": null,
+   "answer": "Chaining uses a linked list in each bucket to handle collisions, while open addressing directly probes for an empty slot.",
+   "seconds": 0.93
+  },
+  {
+   "q": "What happens if you insert sorted keys into a plain binary search tree?",
+   "answerable": true,
+   "expect": "data_structures.md#3",
+   "ok": true,
+   "in_notes": true,
+   "citations": [
+    "data_structures.md#3"
+   ],
+   "guard": null,
+   "answer": "Inserting sorted keys into a plain BST results in it becoming a chain with height n.",
+   "seconds": 0.92
+  },
+  {
+   "q": "What is the time for search in a balanced BST?",
+   "answerable": true,
+   "expect": "data_structures.md#3",
+   "ok": true,
+   "in_notes": true,
+   "citations": [
+    "data_structures.md#3"
+   ],
+   "guard": null,
+   "answer": "The time for search in a balanced BST (AVL or red-black tree) takes O(h), where h is the height and remains at O(log n) due to balancing.",
+   "seconds": 1.27
+  },
+  {
+   "q": "Why are heap push and pop O(log n)?",
+   "answerable": true,
+   "expect": "data_structures.md#4",
+   "ok": false,
+   "in_notes": false,
+   "citations": [],
+   "guard": null,
+   "answer": null,
+   "seconds": 4.68
+  },
+  {
+   "q": "Which algorithm uses a heap as a priority queue?",
+   "answerable": true,
+   "expect": "data_structures.md#4",
+   "ok": true,
+   "in_notes": true,
+   "citations": [
+    "data_structures.md#4"
+   ],
+   "guard": null,
+   "answer": "Heaps are used by algorithms that implement priority queues. Heaps can be applied in Dijkstra's shortest path algorithm.",
+   "seconds": 1.02
+  },
+  {
+   "q": "Which traversal finds shortest paths in an unweighted graph?",
+   "answerable": true,
+   "expect": "data_structures.md#5",
+   "ok": true,
+   "in_notes": true,
+   "citations": [
+    "data_structures.md#5"
+   ],
+   "guard": null,
+   "answer": "Breadth-first search (BFS) finds shortest paths in an unweighted graph.",
+   "seconds": 0.92
+  },
+  {
+   "q": "What is depth-first search used for?",
+   "answerable": true,
+   "expect": "data_structures.md#5",
+   "ok": true,
+   "in_notes": true,
+   "citations": [
+    "data_structures.md#5"
+   ],
+   "guard": null,
+   "answer": "Depth-first search (DFS) is used for cycle detection and topological sorting.",
+   "seconds": 0.85
+  },
+  {
+   "q": "What is the role of the Golgi apparatus?",
+   "answerable": false,
+   "ok": true,
+   "in_notes": false,
+   "citations": [],
+   "guard": "retrieval",
+   "answer": "That is not in your notes.",
+   "seconds": 0.0
+  },
+  {
+   "q": "How does DNA replication work?",
+   "answerable": false,
+   "ok": true,
+   "in_notes": false,
+   "citations": [],
+   "guard": "retrieval",
+   "answer": "That is not in your notes.",
+   "seconds": 0.0
+  },
+  {
+   "q": "What is the capital of Australia?",
+   "answerable": false,
+   "ok": true,
+   "in_notes": false,
+   "citations": [],
+   "guard": "retrieval",
+   "answer": "That is not in your notes.",
+   "seconds": 0.0
+  },
+  {
+   "q": "How does quicksort choose a pivot?",
+   "answerable": false,
+   "ok": true,
+   "in_notes": false,
+   "citations": [],
+   "guard": "retrieval",
+   "answer": "That is not in your notes.",
+   "seconds": 0.0
+  },
+  {
+   "q": "What is a B-tree used for in databases?",
+   "answerable": false,
+   "ok": true,
+   "in_notes": false,
+   "citations": [],
+   "guard": null,
+   "answer": "That is not in your notes.",
+   "seconds": 0.61
+  },
+  {
+   "q": "Who discovered penicillin?",
+   "answerable": false,
+   "ok": true,
+   "in_notes": false,
+   "citations": [],
+   "guard": "retrieval",
+   "answer": "That is not in your notes.",
+   "seconds": 0.0
+  },
+  {
+   "q": "How do I tune an MPC controller horizon?",
+   "answerable": false,
+   "ok": true,
+   "in_notes": false,
+   "citations": [],
+   "guard": null,
+   "answer": "That is not in your notes.",
+   "seconds": 0.61
+  },
+  {
+   "q": "What is the time complexity of merge sort?",
+   "answerable": false,
+   "ok": true,
+   "in_notes": false,
+   "citations": [],
+   "guard": null,
+   "answer": "That is not in your notes.",
+   "seconds": 0.62
+  },
+  {
+   "q": "How does meiosis differ from mitosis?",
+   "answerable": false,
+   "ok": true,
+   "in_notes": false,
+   "citations": [],
+   "guard": "retrieval",
+   "answer": "That is not in your notes.",
+   "seconds": 0.0
+  },
+  {
+   "q": "What year did the French Revolution start?",
+   "answerable": false,
+   "ok": true,
+   "in_notes": false,
+   "citations": [],
+   "guard": "retrieval",
+   "answer": "That is not in your notes.",
+   "seconds": 0.0
+  }
+ ]
+}

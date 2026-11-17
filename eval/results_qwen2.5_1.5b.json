@@ -1,9 +1,9 @@
 {
  "summary": {
   "model": "qwen2.5:1.5b",
-  "answerable_correct_citation": "7/8",
-  "unanswerable_abstained": "6/6",
-  "median_seconds": 0.93
+  "answerable_correct_citation": "25/28",
+  "unanswerable_abstained": "15/16",
+  "median_seconds": 0.71
  },
  "rows": [
   {
@@ -16,8 +16,8 @@
     "controls.md#2"
    ],
    "guard": null,
-   "answer": "Integral windup occurs when an actuator saturates, causing the integral term to continue growing even as the output cannot change. This results in large overshoot once the error changes sign and is a common issue that can be addressed by clamping the integrator or stopping integration while the output is saturated.",
-   "seconds": 1.1
+   "answer": "Integral windup occurs when an actuator saturates, causing the integral term to continue growing even as the output cannot change. This results in large overshoot once the error changes sign.",
+   "seconds": 4.23
   },
   {
    "q": "How do you avoid derivative kick?",
@@ -30,7 +30,7 @@
    ],
    "guard": null,
    "answer": "To avoid derivative kick in PID control, use the derivative of the measurement instead of the error. This reduces the spike that occurs when the setpoint jumps.",
-   "seconds": 1.0
+   "seconds": 0.78
   },
   {
    "q": "How much overshoot does Ziegler-Nichols tuning usually give?",
@@ -42,8 +42,8 @@
     "controls.md#4"
    ],
    "guard": null,
-   "answer": "Ziegler-Nichols tuning tends to give an aggressive response with about 25 percent overshoot.",
-   "seconds": 0.67
+   "answer": "Ziegler-Nichols tuning typically results in about 25 percent overshoot.",
+   "seconds": 0.63
   },
   {
    "q": "What does the predict step of a Kalman filter do?",
@@ -68,8 +68,8 @@
     "estimation.md#2"
    ],
    "guard": null,
-   "answer": "The Kalman filter trusts the measurement more when the measurement noise R is small compared with the predicted covariance. This ensures that the filter's prediction is not overly influenced by the linearization error, which can occur due to large heading errors.",
-   "seconds": 1.04
+   "answer": "The Kalman filter trusts the measurement more when the measurement noise (R) is small compared to the predicted covariance. In this case, the Kalman gain K is large, indicating that the measurements are reliable and should be given higher weight in the estimation process.",
+   "seconds": 1.09
   },
   {
    "q": "Why can an EKF diverge?",
@@ -80,7 +80,7 @@
    "citations": [],
    "guard": "citation",
    "answer": "I could not ground an answer in your notes.",
-   "seconds": 1.28
+   "seconds": 1.08
   },
   {
    "q": "What are the three steps of a particle filter?",
@@ -93,7 +93,7 @@
    ],
    "guard": null,
    "answer": "A particle filter represents the belief with weighted samples. Each step moves the particles with the motion model, weights them by the measurement likelihood and resamples.",
-   "seconds": 0.82
+   "seconds": 0.71
   },
   {
    "q": "What does the proportional term multiply?",
@@ -106,7 +106,7 @@
    ],
    "guard": null,
    "answer": "The proportional term multiplies the error between the setpoint and the measured value.",
-   "seconds": 0.68
+   "seconds": 0.53
   },
   {
    "q": "What is the unscented Kalman filter's sigma point rule?",
@@ -116,7 +116,7 @@
    "citations": [],
    "guard": "citation",
    "answer": "I could not ground an answer in your notes.",
-   "seconds": 1.17
+   "seconds": 0.83
   },
   {
    "q": "How do you tune an LQR controller's Q and R matrices?",
@@ -126,7 +126,7 @@
    "citations": [],
    "guard": "citation",
    "answer": "I could not ground an answer in your notes.",
-   "seconds": 1.07
+   "seconds": 1.26
   },
   {
    "q": "Who invented the PID controller?",
@@ -137,7 +137,7 @@
     "controls.md#1"
    ],
    "guard": null,
-   "answer": "The PID controller was not invented by any single individual but is an extension of earlier proportional-integral controllers. It was developed in the 1940s and has since become a fundamental component in control systems for its effectiveness at minimizing error over time.",
+   "answer": "The PID controller was not invented by any single individual but rather developed through the work of several engineers and researchers. The proportional-integral-derivative (PID) control method is a widely used technique in industrial automation for its effectiveness in reducing steady-state error and improving system performance.",
    "seconds": 0.93
   },
   {
@@ -159,8 +159,8 @@
     "controls.md#1"
    ],
    "guard": null,
-   "answer": "The learning rate in Adam is typically set to 0.001 or a value between 0.001 and 0.1.",
-   "seconds": 0.69
+   "answer": "The learning rate for Adam optimizer is typically set to 0.001 or a value between 0.001 and 0.1.",
+   "seconds": 0.68
   },
   {
    "q": "How many particles does AMCL use by default in ROS?",
@@ -170,7 +170,370 @@
    "citations": [],
    "guard": "citation",
    "answer": "I could not ground an answer in your notes.",
-   "seconds": 0.7
+   "seconds": 0.84
+  },
+  {
+   "q": "Where in the cell does glycolysis happen?",
+   "answerable": true,
+   "expect": "biology.md#2",
+   "ok": true,
+   "in_notes": true,
+   "citations": [
+    "biology.md#2"
+   ],
+   "guard": null,
+   "answer": "Glycolysis happens in the cytoplasm.",
+   "seconds": 0.63
+  },
+  {
+   "q": "What is the net ATP gain of glycolysis?",
+   "answerable": true,
+   "expect": "biology.md#2",
+   "ok": true,
+   "in_notes": true,
+   "citations": [
+    "biology.md#2"
+   ],
+   "guard": null,
+   "answer": "The net ATP gain from one glucose molecule through glycolysis is 2 ATP.",
+   "seconds": 0.67
+  },
+  {
+   "q": "What does pyruvate get converted to before the Krebs cycle?",
+   "answerable": true,
+   "expect": "biology.md#3",
+   "ok": true,
+   "in_notes": true,
+   "citations": [
+    "biology.md#3"
+   ],
+   "guard": null,
+   "answer": "Before entering the Krebs cycle, pyruvate is converted into acetyl-CoA.",
+   "seconds": 0.71
+  },
+  {
+   "q": "Why does the Krebs cycle turn twice per glucose?",
+   "answerable": true,
+   "expect": "biology.md#3",
+   "ok": true,
+   "in_notes": true,
+   "citations": [
+    "biology.md#3"
+   ],
+   "guard": null,
+   "answer": "The Krebs cycle turns twice per glucose because glycolysis produces two pyruvates from one molecule of glucose. Each turn of the Krebs cycle releases NADH and FADH2, which are used to generate ATP in the electron transport chain. This process ensures that each glucose molecule is fully utilized by converting it into carbon dioxide, water, and approximately 30-32 ATP molecules.",
+   "seconds": 1.13
+  },
+  {
+   "q": "What is the final electron acceptor in the electron transport chain?",
+   "answerable": true,
+   "expect": "biology.md#4",
+   "ok": true,
+   "in_notes": true,
+   "citations": [
+    "biology.md#4"
+   ],
+   "guard": null,
+   "answer": "The final electron acceptor in the electron transport chain is oxygen.",
+   "seconds": 0.57
+  },
+  {
+   "q": "What enzyme makes most of the ATP using the proton flow?",
+   "answerable": true,
+   "expect": "biology.md#4",
+   "ok": true,
+   "in_notes": true,
+   "citations": [
+    "biology.md#4",
+    "biology.md#6"
+   ],
+   "guard": null,
+   "answer": "The enzyme that uses the proton flow to make most of the cell's ATP is ATP synthase.",
+   "seconds": 0.57
+  },
+  {
+   "q": "What do muscle cells make during fermentation?",
+   "answerable": true,
+   "expect": "biology.md#5",
+   "ok": true,
+   "in_notes": true,
+   "citations": [
+    "biology.md#5"
+   ],
+   "guard": null,
+   "answer": "Muscle cells make lactate during fermentation.",
+   "seconds": 0.56
+  },
+  {
+   "q": "How many ATP does fermentation yield?",
+   "answerable": true,
+   "expect": "biology.md#5",
+   "ok": true,
+   "in_notes": true,
+   "citations": [
+    "biology.md#5"
+   ],
+   "guard": null,
+   "answer": "Fermentation yields only the 2 ATP from glycolysis.",
+   "seconds": 0.54
+  },
+  {
+   "q": "Which enzyme fixes carbon in the Calvin cycle?",
+   "answerable": true,
+   "expect": "biology.md#6",
+   "ok": true,
+   "in_notes": true,
+   "citations": [
+    "biology.md#6"
+   ],
+   "guard": null,
+   "answer": "The enzyme rubisco fixes carbon in the Calvin cycle.",
+   "seconds": 0.61
+  },
+  {
+   "q": "What are the three stages of cellular respiration?",
+   "answerable": true,
+   "expect": "biology.md#1",
+   "ok": true,
+   "in_notes": true,
+   "citations": [
+    "biology.md#1"
+   ],
+   "guard": null,
+   "answer": "The three main stages of cellular respiration are glycolysis, the Krebs cycle (also known as the citric acid cycle), and the electron transport chain.",
+   "seconds": 0.8
+  },
+  {
+   "q": "Why is inserting in the middle of an array slow?",
+   "answerable": true,
+   "expect": "data_structures.md#1",
+   "ok": true,
+   "in_notes": true,
+   "citations": [
+    "data_structures.md#1"
+   ],
+   "guard": null,
+   "answer": "Inserting in the middle of an array is O(n) because later elements must shift. This requires moving all subsequent elements to make space for the new element being inserted.",
+   "seconds": 0.9
+  },
+  {
+   "q": "How fast is finding the i-th element of a linked list?",
+   "answerable": true,
+   "expect": "data_structures.md#1",
+   "ok": false,
+   "in_notes": true,
+   "citations": [
+    "data_structures.md#4"
+   ],
+   "guard": null,
+   "answer": "Finding the i-th element in a linked list is O(n).",
+   "seconds": 0.6
+  },
+  {
+   "q": "What happens when the hash table load factor gets too high?",
+   "answerable": true,
+   "expect": "data_structures.md#2",
+   "ok": true,
+   "in_notes": true,
+   "citations": [
+    "data_structures.md#2"
+   ],
+   "guard": null,
+   "answer": "When the load factor of a hash table becomes too high, it is resized to accommodate more entries. This resizing process involves rehashing all existing keys into new buckets, ensuring that no two keys end up in the same bucket. The goal is to maintain an average lookup time of O(1) while preventing collisions and maintaining efficient storage.",
+   "seconds": 1.22
+  },
+  {
+   "q": "What is the difference between chaining and open addressing?",
+   "answerable": true,
+   "expect": "data_structures.md#2",
+   "ok": false,
+   "in_notes": false,
+   "citations": [],
+   "guard": "citation",
+   "answer": "I could not ground an answer in your notes.",
+   "seconds": 1.3
+  },
+  {
+   "q": "What happens if you insert sorted keys into a plain binary search tree?",
+   "answerable": true,
+   "expect": "data_structures.md#3",
+   "ok": true,
+   "in_notes": true,
+   "citations": [
+    "data_structures.md#3"
+   ],
+   "guard": null,
+   "answer": "Inserting sorted keys into a plain binary search tree results in the creation of a chain with height equal to the number of inserted keys.",
+   "seconds": 0.78
+  },
+  {
+   "q": "What is the time for search in a balanced BST?",
+   "answerable": true,
+   "expect": "data_structures.md#3",
+   "ok": true,
+   "in_notes": true,
+   "citations": [
+    "data_structures.md#3"
+   ],
+   "guard": null,
+   "answer": "In a balanced binary search tree (AVL or red-black), the height h of the tree is O(log n). Therefore, search operations take O(h) which simplifies to O(log n) since h is logarithmic in n.",
+   "seconds": 0.95
+  },
+  {
+   "q": "Why are heap push and pop O(log n)?",
+   "answerable": true,
+   "expect": "data_structures.md#4",
+   "ok": true,
+   "in_notes": true,
+   "citations": [
+    "data_structures.md#4"
+   ],
+   "guard": null,
+   "answer": "Heap operations like push and pop involve elements moving up or down the tree structure. Each level of the binary heap can be thought of as a complete subtree with its parent node being compared to its children. Since each comparison involves traversing from one node to another in the tree, it takes O(log n) time for each operation due to the logarithmic nature of the height of the tree.",
+   "seconds": 1.12
+  },
+  {
+   "q": "Which algorithm uses a heap as a priority queue?",
+   "answerable": true,
+   "expect": "data_structures.md#4",
+   "ok": true,
+   "in_notes": true,
+   "citations": [
+    "data_structures.md#4"
+   ],
+   "guard": null,
+   "answer": "Dijkstra's shortest path algorithm",
+   "seconds": 0.53
+  },
+  {
+   "q": "Which traversal finds shortest paths in an unweighted graph?",
+   "answerable": true,
+   "expect": "data_structures.md#5",
+   "ok": true,
+   "in_notes": true,
+   "citations": [
+    "data_structures.md#5"
+   ],
+   "guard": null,
+   "answer": "Breadth-first search (BFS) finds shortest paths in an unweighted graph.",
+   "seconds": 0.63
+  },
+  {
+   "q": "What is depth-first search used for?",
+   "answerable": true,
+   "expect": "data_structures.md#5",
+   "ok": true,
+   "in_notes": true,
+   "citations": [
+    "data_structures.md#5"
+   ],
+   "guard": null,
+   "answer": "Depth-first search (DFS) uses a stack or recursion and explores as far down one path as possible before backtracking. It is commonly used for cycle detection in graphs, finding topological orderings of directed acyclic graphs (DAGs), and implementing certain types of sorting algorithms.",
+   "seconds": 1.02
+  },
+  {
+   "q": "What is the role of the Golgi apparatus?",
+   "answerable": false,
+   "ok": true,
+   "in_notes": false,
+   "citations": [],
+   "guard": "retrieval",
+   "answer": "That is not in your notes.",
+   "seconds": 0.0
+  },
+  {
+   "q": "How does DNA replication work?",
+   "answerable": false,
+   "ok": true,
+   "in_notes": false,
+   "citations": [],
+   "guard": "retrieval",
+   "answer": "That is not in your notes.",
+   "seconds": 0.0
+  },
+  {
+   "q": "What is the capital of Australia?",
+   "answerable": false,
+   "ok": true,
+   "in_notes": false,
+   "citations": [],
+   "guard": "retrieval",
+   "answer": "That is not in your notes.",
+   "seconds": 0.0
+  },
+  {
+   "q": "How does quicksort choose a pivot?",
+   "answerable": false,
+   "ok": true,
+   "in_notes": false,
+   "citations": [],
+   "guard": "retrieval",
+   "answer": "That is not in your notes.",
+   "seconds": 0.0
+  },
+  {
+   "q": "What is a B-tree used for in databases?",
+   "answerable": false,
+   "ok": true,
+   "in_notes": false,
+   "citations": [
+    "data_structures.md#5"
+   ],
+   "guard": null,
+   "answer": "A B-tree is used in databases to maintain sorted access paths and support efficient range queries. It allows for balanced indexing that can improve performance by reducing disk I/O.",
+   "seconds": 0.77
+  },
+  {
+   "q": "Who discovered penicillin?",
+   "answerable": false,
+   "ok": true,
+   "in_notes": false,
+   "citations": [],
+   "guard": "retrieval",
+   "answer": "That is not in your notes.",
+   "seconds": 0.0
+  },
+  {
+   "q": "How do I tune an MPC controller horizon?",
+   "answerable": false,
+   "ok": true,
+   "in_notes": false,
+   "citations": [],
+   "guard": "citation",
+   "answer": "I could not ground an answer in your notes.",
+   "seconds": 0.98
+  },
+  {
+   "q": "What is the time complexity of merge sort?",
+   "answerable": false,
+   "ok": false,
+   "in_notes": true,
+   "citations": [
+    "data_structures.md#4"
+   ],
+   "guard": null,
+   "answer": "The time complexity of merge sort is O(n log n).",
+   "seconds": 0.6
+  },
+  {
+   "q": "How does meiosis differ from mitosis?",
+   "answerable": false,
+   "ok": true,
+   "in_notes": false,
+   "citations": [],
+   "guard": "retrieval",
+   "answer": "That is not in your notes.",
+   "seconds": 0.0
+  },
+  {
+   "q": "What year did the French Revolution start?",
+   "answerable": false,
+   "ok": true,
+   "in_notes": false,
+   "citations": [],
+   "guard": "retrieval",
+   "answer": "That is not in your notes.",
+   "seconds": 0.0
   }
  ]
 }

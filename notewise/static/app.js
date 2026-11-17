@@ -63,7 +63,8 @@ function renderCheck(r) {
   add("bot", `<div class="k">Explain-it-back check</div><div class="score ${sc >= 70 ? "ok" : sc < 40 ? "bad" : ""}">${sc}/100</div>
     ${r.covered?.length ? `<b class="ok">You got</b><ul>${r.covered.map((c) => `<li>${esc(c)}</li>`).join("")}</ul>` : ""}
     ${r.missed?.length ? `<b>You missed</b><ul>${r.missed.map((m) => `<li>${esc(m.point)} ${pill(m.citation)}</li>`).join("")}</ul>` : ""}
-    ${r.wrong?.length ? `<b class="bad">Contradicts your notes</b><ul>${r.wrong.map((m) => `<li>${esc(m.claim)} ${pill(m.citation)}</li>`).join("")}</ul>` : ""}`);
+    ${r.wrong?.length ? `<b class="bad">Contradicts your notes</b><ul>${r.wrong.map((m) => `<li>${esc(m.claim)} ${pill(m.citation)}${m.evidence ? `<br><small>Your notes say: "${esc(m.evidence)}"</small>` : ""}</li>`).join("")}</ul>` : ""}
+    ${r.unverified?.length ? `<b>Could not check against your notes</b><ul>${r.unverified.map((c) => `<li>${esc(c)}</li>`).join("")}</ul>` : ""}`);
   const firstCite = r.wrong?.[0]?.citation || r.missed?.[0]?.citation;
   if (firstCite) showSource(firstCite); else { renderViewer(srcs); }
 }

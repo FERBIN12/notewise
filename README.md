@@ -14,6 +14,12 @@ made up, with no way to tell which part is which. Notewise is built the other wa
 - **Private by design**: the model runs locally through [Ollama](https://ollama.com) (default `qwen2.5:1.5b`), and notes are
   kept in memory on your machine. Nothing is sent to a cloud API.
 
+## Screenshots (real app, local qwen2.5:1.5b)
+
+![Grounded answer with the cited lines highlighted](https://github.com/FERBIN12/notewise/releases/download/media-v1/answer.png)
+
+![Explain it back: two planted errors flagged, each with the note sentence that shows why](https://github.com/FERBIN12/notewise/releases/download/media-v1/check.png)
+
 ## Setup (3 commands)
 
 Needs Python 3.10+ and Ollama.
@@ -39,19 +45,40 @@ Settings (environment variables): `NOTEWISE_MODEL` (any Ollama model), `OLLAMA_H
 5. **Guard 2, citations**: citation ids that were not in the retrieved set are dropped. A citation is kept only if
    its chunk really contains a good share of the answer's words (small models over-cite). If no citation survives,
    the answer is withheld and the student is told it could not be grounded.
-6. **Explain it back** uses the same retrieval, and every "missed" or "wrong" item must cite a retrieved chunk or
-   it is dropped.
+6. **Explain it back** splits the student's explanation into short claims and checks each one on its own: the
+   model must say supported / contradicted / not in notes and quote the note sentence it used. A verdict whose
+   quote is not really in the cited chunk is ignored. "Contradicted" also needs a second, narrower check (do these
+   two sentences disagree on a fact?) and is never given for a claim whose words are almost all in the notes.
+   Claims nobody could verify are listed as "Could not check", and the score is the share of claims supported.
 
 ## Evaluation (real runs, files in `eval/`)
 
-EVAL_TABLE_PLACEHOLDER
+**Grounded Q&A** (`eval/questions.json`: 28 questions answerable from the notes, 16 that are not):
+
+| Model | Answerable, right chunk cited | Not in notes, correctly refused | Median time |
+|---|---|---|---|
+| qwen2.5:1.5b (default) | 25/28 | 15/16 | 0.71 s |
+| qwen2.5:3b (optional) | 26/28 | 16/16 | 0.88 s |
+
+**Explain it back** (`eval/check_items.json`: 6 correct explanations, 6 with a planted factual error):
+
+| Model | Planted errors caught | Correct explanations not flagged | Mean score, correct | Mean score, planted |
+|---|---|---|---|---|
+| qwen2.5:1.5b (default) | 4/6 | 5/6 | 64.0 | 0.0 |
+| qwen2.5:3b (optional) | 4/6 | 6/6 | 94.5 | 0.0 |
+
+Times are on a laptop RTX 4050 GPU. In this eval no claim from a planted explanation was marked "You got": the uncaught ones
+landed in "Could not check", which is why planted explanations score 0 with both models. The first version of explain-it-back
+judged the whole paragraph in one prompt and caught **0/6** planted errors (the small model just restated the notes),
+which is why it now checks one claim at a time. The eval set is small and the claim checker was tuned while looking at these same 12 items, so these numbers are
+likely optimistic: treat them as a sanity check, not a benchmark.
 
 Reproduce: `.venv/bin/python eval/run_eval.py` and `.venv/bin/python eval/run_check_eval.py` (Ollama running).
 The note sets in `sample_notes/` (controls, estimation, biology, data structures) were written for this project.
 
 ## Limits (honest list)
 
-- A 1.5B model is small: it can still phrase an answer loosely, and the word-overlap support check is a
+- A 1.5B model is small: it misses some planted errors (see the table) and can still phrase an answer loosely, and the word-overlap support check is a
   heuristic, not proof. The guards make it fail toward "not in your notes", not toward a made-up answer.
 - Plain text and markdown notes only (no PDF or handwriting yet). Notes are held in memory and cleared on restart.
 - Single user, local only. It is a study aid: check important facts against your course material.
@@ -68,7 +95,9 @@ were checked by running the app and the eval scripts; every number above comes f
 ## Credits and licenses
 
 - [Ollama](https://github.com/ollama/ollama) (MIT) for local inference.
-- [Qwen2.5-1.5B-Instruct](https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct) (Apache-2.0).
+- [Qwen2.5-1.5B-Instruct](https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct) (Apache-2.0), the default model.
+- Optional: [Qwen2.5-3B-Instruct](https://huggingface.co/Qwen/Qwen2.5-3B-Instruct) is under the Qwen Research
+  License (non-commercial). Notewise does not ship it; if you pull it yourself, run with `NOTEWISE_MODEL=qwen2.5:3b`.
 - [rank_bm25](https://github.com/dorianbrown/rank_bm25) (Apache-2.0), [FastAPI](https://fastapi.tiangolo.com) (MIT),
   [Uvicorn](https://www.uvicorn.org) (BSD-3-Clause), [HTTPX](https://www.python-httpx.org) (BSD-3-Clause).
 
