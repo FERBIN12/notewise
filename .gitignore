@@ -12,3 +12,6 @@ tools/.gpu_batch_done
 shots/
 .pytest_cache/
 tools/gpu_batch.sh
+video/
+tools/rec_gpu.sh
+DEVPOST_STORY.md
