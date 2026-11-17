@@ -1,0 +1,49 @@
+:root { --bg:#f6f4ef; --paper:#fffdf8; --ink:#1f2328; --muted:#6b6f76; --line:#e3ded3; --accent:#2f5d8a; --hl:#fff1b8; --hl2:#ffe27a; --bad:#a33a2c; --good:#2e7d4f; }
+[hidden] { display:none !important; }
+* { box-sizing:border-box; }
+body { margin:0; font:15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; background:var(--bg); color:var(--ink); display:flex; flex-direction:column; height:100vh; }
+header { display:flex; align-items:center; gap:18px; padding:12px 22px; border-bottom:1px solid var(--line); background:var(--paper); }
+.brand { font-weight:700; font-size:20px; display:flex; align-items:center; gap:8px; }
+.mark { display:inline-grid; place-items:center; width:30px; height:30px; border-radius:7px; background:var(--accent); color:#fff; font-family:Georgia, serif; }
+.tag { color:var(--muted); font-size:14px; }
+main { flex:1; display:grid; grid-template-columns: 1.1fr 1fr; gap:16px; padding:16px 22px; min-height:0; }
+section { background:var(--paper); border:1px solid var(--line); border-radius:10px; display:flex; flex-direction:column; min-height:0; }
+.bar { display:flex; justify-content:space-between; align-items:center; padding:10px 14px; border-bottom:1px solid var(--line); flex-wrap:wrap; gap:8px; }
+h2 { margin:0; font-size:16px; }
+.actions { display:flex; gap:8px; }
+.btn { background:var(--accent); color:#fff; border:0; border-radius:7px; padding:7px 12px; font:inherit; font-size:14px; cursor:pointer; }
+.btn.ghost { background:transparent; color:var(--accent); border:1px solid var(--accent); }
+.btn:disabled { opacity:.5; cursor:wait; }
+#pastebox { padding:10px 14px; display:flex; flex-direction:column; gap:8px; border-bottom:1px solid var(--line); }
+input, textarea { font:inherit; border:1px solid var(--line); border-radius:7px; padding:8px; background:#fff; width:100%; }
+#tabs { display:flex; gap:4px; padding:8px 14px 0; flex-wrap:wrap; }
+.tab { border:1px solid var(--line); border-bottom:0; border-radius:7px 7px 0 0; padding:4px 10px; background:var(--bg); cursor:pointer; font-size:13px; }
+.tab.on { background:#fff; font-weight:600; }
+.tab .x { margin-left:6px; color:var(--muted); }
+#viewer { flex:1; overflow:auto; font:13.5px/1.6 ui-monospace, "SF Mono", Menlo, Consolas, monospace; background:#fff; border-top:1px solid var(--line); }
+.ln { display:flex; padding:0 10px; transition:background .3s; }
+.ln .n { width:38px; flex:none; color:#a7a59f; text-align:right; padding-right:12px; user-select:none; }
+.ln .t { white-space:pre-wrap; word-break:break-word; }
+.ln.h { background:var(--hl); }
+.ln.h.focus { background:var(--hl2); }
+.ln.head .t { font-weight:700; color:var(--accent); }
+.empty { color:var(--muted); padding:20px; font-family:system-ui, sans-serif; }
+.modes { display:flex; gap:6px; padding:10px 14px 0; }
+.mode { flex:1; border:1px solid var(--line); background:var(--bg); border-radius:7px; padding:8px; font:inherit; cursor:pointer; }
+.mode.on { background:var(--accent); color:#fff; border-color:var(--accent); }
+.help { margin:6px 14px 0; color:var(--muted); font-size:13px; }
+#log { flex:1; overflow:auto; padding:12px 14px; display:flex; flex-direction:column; gap:10px; }
+.msg { padding:10px 12px; border-radius:9px; max-width:95%; }
+.msg.you { align-self:flex-end; background:#e8eef5; }
+.msg.bot { align-self:flex-start; background:var(--bg); border:1px solid var(--line); }
+.msg.no { border-left:4px solid var(--muted); }
+.msg .k { font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:.04em; margin-bottom:3px; }
+.cite { display:inline-block; margin:6px 6px 0 0; padding:2px 8px; border-radius:20px; background:var(--hl); border:1px solid #e9d27c; font-size:12.5px; cursor:pointer; }
+.score { font-size:26px; font-weight:700; }
+.ok { color:var(--good); } .bad { color:var(--bad); }
+ul { margin:4px 0 0 18px; padding:0; }
+#form { display:flex; flex-direction:column; gap:8px; padding:12px 14px; border-top:1px solid var(--line); }
+#form .btn { align-self:flex-end; }
+footer { text-align:center; color:var(--muted); font-size:12px; padding:6px; }
+.typing { color:var(--muted); font-style:italic; }
+@media (max-width: 860px) { main { grid-template-columns:1fr; } body { height:auto; } #viewer { max-height:45vh; } #log { max-height:60vh; } }

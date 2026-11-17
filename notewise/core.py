@@ -5,7 +5,8 @@ from dataclasses import dataclass, field
 from rank_bm25 import BM25Plus   # BM25Okapi gives idf 0 on tiny note sets
 
 TOKEN = re.compile(r"[a-z0-9]+")
-STOP = set("the a an of to in and or is are was were be for on with as by at it this that from what how why which who".split())
+STOP = set("the a an of to in and or is are was were be for on with as by at it this that from what how why which who"
+           " do does did can could should would will i my me you your we our there their its into than then when where".split())
 
 def tokens(text: str) -> list[str]:
     return [t for t in TOKEN.findall(text.lower()) if t not in STOP]
@@ -86,7 +87,7 @@ Use only the notes. Be encouraging but exact."""
 
 class LLM:
     """Ollama chat client (local model, notes never leave the machine)."""
-    def __init__(self, model="qwen2.5:3b", host="http://127.0.0.1:11434"):
+    def __init__(self, model="qwen2.5:1.5b", host="http://127.0.0.1:11434"):
         self.model, self.host = model, host
     def json_chat(self, system: str, user: str) -> dict:
         import httpx

@@ -1,0 +1,14 @@
+[
+ {"topic": "Integral windup", "explanation": "When the actuator saturates the integral term keeps growing, which causes big overshoot later. You can fix it by clamping the integrator.", "planted_error": false},
+ {"topic": "Integral windup", "explanation": "Integral windup happens when the derivative gain is too high, and the fix is to raise Ki.", "planted_error": true},
+ {"topic": "Glycolysis", "explanation": "Glycolysis happens in the cytoplasm without oxygen and splits glucose into two pyruvates, netting 2 ATP and 2 NADH.", "planted_error": false},
+ {"topic": "Glycolysis", "explanation": "Glycolysis happens inside the mitochondria and needs oxygen, and it makes about 30 ATP.", "planted_error": true},
+ {"topic": "Electron transport chain", "explanation": "Proteins in the inner mitochondrial membrane pump protons, and ATP synthase uses the proton flow back to make ATP. Oxygen is the final electron acceptor and forms water.", "planted_error": false},
+ {"topic": "Electron transport chain", "explanation": "The electron transport chain is in the chloroplast and carbon dioxide is the final electron acceptor.", "planted_error": true},
+ {"topic": "Hash tables", "explanation": "A hash function maps keys to buckets for average O(1) lookups. Collisions are handled with chaining or open addressing, and the table resizes when the load factor is high.", "planted_error": false},
+ {"topic": "Hash tables", "explanation": "Hash tables keep keys sorted, so lookup is O(log n), and collisions are impossible with a good hash.", "planted_error": true},
+ {"topic": "Breadth-first search", "explanation": "BFS uses a queue and visits nodes by distance in edges, so it finds shortest paths in unweighted graphs.", "planted_error": false},
+ {"topic": "Breadth-first search", "explanation": "BFS uses a stack and goes as deep as possible first, and it finds shortest paths in weighted graphs.", "planted_error": true},
+ {"topic": "Binary heaps", "explanation": "A min-heap stores a complete tree in an array, the minimum is read in O(1), and push and pop take O(log n).", "planted_error": false},
+ {"topic": "Binary heaps", "explanation": "In a min-heap every parent is larger than its children and popping the minimum is O(1).", "planted_error": true}
+]

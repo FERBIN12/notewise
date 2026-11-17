@@ -8,3 +8,6 @@ __pycache__/
 PLAN.md
 STATE.md
 .env
+tools/.gpu_batch_done
+shots/
+.pytest_cache/

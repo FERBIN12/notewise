@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Notewise: a study tutor that only uses your notes</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header>
+  <div class="brand"><span class="mark">N</span> Notewise</div>
+  <div class="tag">Answers only from <b>your</b> notes. Runs on your laptop. Says so when the notes do not cover it.</div>
+</header>
+<main>
+  <section id="notes">
+    <div class="bar">
+      <h2>Your notes</h2>
+      <div class="actions">
+        <label class="btn">Upload .md/.txt<input id="file" type="file" accept=".md,.txt,.markdown" multiple hidden></label>
+        <button id="paste" class="btn ghost">Paste</button>
+        <button id="samples" class="btn ghost">Load sample notes</button>
+      </div>
+    </div>
+    <div id="pastebox" hidden>
+      <input id="pname" placeholder="name, e.g. biology-week3.md">
+      <textarea id="ptext" rows="8" placeholder="Paste your lecture notes here"></textarea>
+      <button id="padd" class="btn">Add notes</button>
+    </div>
+    <div id="tabs"></div>
+    <div id="viewer"><p class="empty">No notes yet. Upload a file, paste text, or load the sample notes.</p></div>
+  </section>
+
+  <section id="chat">
+    <div class="modes" role="tablist">
+      <button data-mode="answer" class="mode on">Ask</button>
+      <button data-mode="tutor" class="mode">Tutor me</button>
+      <button data-mode="check" class="mode">Explain it back</button>
+    </div>
+    <p id="modehelp" class="help"></p>
+    <div id="log"></div>
+    <form id="form">
+      <input id="topic" placeholder="Topic, e.g. Kalman gain" hidden>
+      <textarea id="q" rows="3" placeholder="Ask a question about your notes"></textarea>
+      <button class="btn" id="send">Send</button>
+    </form>
+  </section>
+</main>
+<footer>Local model via Ollama. Built with Claude Code (AI coding agent) directed by Ferbin.</footer>
+<script src="/static/app.js"></script>
+</body>
+</html>

@@ -1,16 +1,206 @@
 [
- {"q": "What causes integral windup?", "answerable": true, "expect": "controls.md#2"},
- {"q": "How do you avoid derivative kick?", "answerable": true, "expect": "controls.md#3"},
- {"q": "How much overshoot does Ziegler-Nichols tuning usually give?", "answerable": true, "expect": "controls.md#4"},
- {"q": "What does the predict step of a Kalman filter do?", "answerable": true, "expect": "estimation.md#1"},
- {"q": "When does the Kalman filter trust the measurement more?", "answerable": true, "expect": "estimation.md#2"},
- {"q": "Why can an EKF diverge?", "answerable": true, "expect": "estimation.md#3"},
- {"q": "What are the three steps of a particle filter?", "answerable": true, "expect": "estimation.md#4"},
- {"q": "What does the proportional term multiply?", "answerable": true, "expect": "controls.md#1"},
- {"q": "What is the unscented Kalman filter's sigma point rule?", "answerable": false},
- {"q": "How do you tune an LQR controller's Q and R matrices?", "answerable": false},
- {"q": "Who invented the PID controller?", "answerable": false},
- {"q": "What is the capital of France?", "answerable": false},
- {"q": "What learning rate should I use for Adam?", "answerable": false},
- {"q": "How many particles does AMCL use by default in ROS?", "answerable": false}
+ {
+  "q": "What causes integral windup?",
+  "answerable": true,
+  "expect": "controls.md#2"
+ },
+ {
+  "q": "How do you avoid derivative kick?",
+  "answerable": true,
+  "expect": "controls.md#3"
+ },
+ {
+  "q": "How much overshoot does Ziegler-Nichols tuning usually give?",
+  "answerable": true,
+  "expect": "controls.md#4"
+ },
+ {
+  "q": "What does the predict step of a Kalman filter do?",
+  "answerable": true,
+  "expect": "estimation.md#1"
+ },
+ {
+  "q": "When does the Kalman filter trust the measurement more?",
+  "answerable": true,
+  "expect": "estimation.md#2"
+ },
+ {
+  "q": "Why can an EKF diverge?",
+  "answerable": true,
+  "expect": "estimation.md#3"
+ },
+ {
+  "q": "What are the three steps of a particle filter?",
+  "answerable": true,
+  "expect": "estimation.md#4"
+ },
+ {
+  "q": "What does the proportional term multiply?",
+  "answerable": true,
+  "expect": "controls.md#1"
+ },
+ {
+  "q": "What is the unscented Kalman filter's sigma point rule?",
+  "answerable": false
+ },
+ {
+  "q": "How do you tune an LQR controller's Q and R matrices?",
+  "answerable": false
+ },
+ {
+  "q": "Who invented the PID controller?",
+  "answerable": false
+ },
+ {
+  "q": "What is the capital of France?",
+  "answerable": false
+ },
+ {
+  "q": "What learning rate should I use for Adam?",
+  "answerable": false
+ },
+ {
+  "q": "How many particles does AMCL use by default in ROS?",
+  "answerable": false
+ },
+ {
+  "q": "Where in the cell does glycolysis happen?",
+  "answerable": true,
+  "expect": "biology.md#2"
+ },
+ {
+  "q": "What is the net ATP gain of glycolysis?",
+  "answerable": true,
+  "expect": "biology.md#2"
+ },
+ {
+  "q": "What does pyruvate get converted to before the Krebs cycle?",
+  "answerable": true,
+  "expect": "biology.md#3"
+ },
+ {
+  "q": "Why does the Krebs cycle turn twice per glucose?",
+  "answerable": true,
+  "expect": "biology.md#3"
+ },
+ {
+  "q": "What is the final electron acceptor in the electron transport chain?",
+  "answerable": true,
+  "expect": "biology.md#4"
+ },
+ {
+  "q": "What enzyme makes most of the ATP using the proton flow?",
+  "answerable": true,
+  "expect": "biology.md#4"
+ },
+ {
+  "q": "What do muscle cells make during fermentation?",
+  "answerable": true,
+  "expect": "biology.md#5"
+ },
+ {
+  "q": "How many ATP does fermentation yield?",
+  "answerable": true,
+  "expect": "biology.md#5"
+ },
+ {
+  "q": "Which enzyme fixes carbon in the Calvin cycle?",
+  "answerable": true,
+  "expect": "biology.md#6"
+ },
+ {
+  "q": "What are the three stages of cellular respiration?",
+  "answerable": true,
+  "expect": "biology.md#1"
+ },
+ {
+  "q": "Why is inserting in the middle of an array slow?",
+  "answerable": true,
+  "expect": "data_structures.md#1"
+ },
+ {
+  "q": "How fast is finding the i-th element of a linked list?",
+  "answerable": true,
+  "expect": "data_structures.md#1"
+ },
+ {
+  "q": "What happens when the hash table load factor gets too high?",
+  "answerable": true,
+  "expect": "data_structures.md#2"
+ },
+ {
+  "q": "What is the difference between chaining and open addressing?",
+  "answerable": true,
+  "expect": "data_structures.md#2"
+ },
+ {
+  "q": "What happens if you insert sorted keys into a plain binary search tree?",
+  "answerable": true,
+  "expect": "data_structures.md#3"
+ },
+ {
+  "q": "What is the time for search in a balanced BST?",
+  "answerable": true,
+  "expect": "data_structures.md#3"
+ },
+ {
+  "q": "Why are heap push and pop O(log n)?",
+  "answerable": true,
+  "expect": "data_structures.md#4"
+ },
+ {
+  "q": "Which algorithm uses a heap as a priority queue?",
+  "answerable": true,
+  "expect": "data_structures.md#4"
+ },
+ {
+  "q": "Which traversal finds shortest paths in an unweighted graph?",
+  "answerable": true,
+  "expect": "data_structures.md#5"
+ },
+ {
+  "q": "What is depth-first search used for?",
+  "answerable": true,
+  "expect": "data_structures.md#5"
+ },
+ {
+  "q": "What is the role of the Golgi apparatus?",
+  "answerable": false
+ },
+ {
+  "q": "How does DNA replication work?",
+  "answerable": false
+ },
+ {
+  "q": "What is the capital of Australia?",
+  "answerable": false
+ },
+ {
+  "q": "How does quicksort choose a pivot?",
+  "answerable": false
+ },
+ {
+  "q": "What is a B-tree used for in databases?",
+  "answerable": false
+ },
+ {
+  "q": "Who discovered penicillin?",
+  "answerable": false
+ },
+ {
+  "q": "How do I tune an MPC controller horizon?",
+  "answerable": false
+ },
+ {
+  "q": "What is the time complexity of merge sort?",
+  "answerable": false
+ },
+ {
+  "q": "How does meiosis differ from mitosis?",
+  "answerable": false
+ },
+ {
+  "q": "What year did the French Revolution start?",
+  "answerable": false
+ }
 ]
