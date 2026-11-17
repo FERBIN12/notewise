@@ -78,7 +78,9 @@ TUTOR_SYS = """You are Notewise in tutor mode. Do NOT give the final answer. Usi
 reply as JSON: {"in_notes": true|false, "question": "one guiding question that leads the student toward the answer",
 "hint": "a small hint pointing to where in the notes to look", "citations": [chunk ids]}.
 Citations must be copied exactly from the chunk ids in square brackets, e.g. "controls.md#2".
-If the notes do not cover it, set in_notes false and say so in question."""
+The guiding question must NOT repeat the student's question: ask about one smaller step that leads to the answer
+(for example a cause, a quantity, or what happens just before). If the notes do not cover it, set in_notes false
+and say so in question."""
 
 CLAIM_SYS = """You are a strict fact checker for a student's study notes. You get NOTES and ONE student CLAIM.
 Decide if the notes support the claim, contradict it, or do not mention it. A claim is contradicted if ANY part of it
@@ -123,6 +125,22 @@ def ask(nb: Notebook, llm, question: str, mode: str = "answer") -> dict:
     out = llm.json_chat(TUTOR_SYS if mode == "tutor" else ASK_SYS, f"NOTES:\n{context_block(hits)}\n\nCHUNK IDS: {', '.join(c.id for c, _ in hits)}\n\nQUESTION: {question}")
     out["citations"] = _valid_citations(out.get("citations"), hits)
     out["in_notes"] = bool(out.get("in_notes"))
+    if mode == "tutor" and out["in_notes"]:
+        qt = set(tokens(question))
+        def near(c): return len(qt & set(tokens(nb.get(c).heading + " " + nb.get(c).text)))
+        # point at the ONE chunk that best matches the question (the model often cites an overview chunk)
+        out["citations"] = [max([c.id for c, _ in hits], key=near)]
+        gq = str(out.get("question", ""))
+        echo = lambda g: not tokens(g) or len(set(tokens(g)) & qt) / max(len(qt), 1) >= 0.6   # restates the student's question
+        if echo(gq):
+            retry = llm.json_chat(TUTOR_SYS, f"NOTES:\n{context_block(hits)}\n\nCHUNK IDS: {', '.join(c.id for c, _ in hits)}\n\n"
+                                  f"QUESTION: {question}\n\nDo not repeat this question. Ask about a smaller step instead.")
+            rq = str(retry.get("question", ""))
+            if not echo(rq):
+                out["question"], out["hint"] = rq, retry.get("hint", out.get("hint", ""))
+            else:
+                h = nb.get(out["citations"][0]).heading
+                out["question"] = f"Before answering, reread your notes on {h}: what happens there step by step?"
     if mode != "tutor" and out["in_notes"]:
         ans = str(out.get("answer", ""))
         out["citations"] = supported(ans, out["citations"], nb)

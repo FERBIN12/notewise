@@ -80,6 +80,8 @@ The note sets in `sample_notes/` (controls, estimation, biology, data structures
 
 - A 1.5B model is small: it misses some planted errors (see the table) and can still phrase an answer loosely, and the word-overlap support check is a
   heuristic, not proof. The guards make it fail toward "not in your notes", not toward a made-up answer.
+- Tutor mode with the 1.5B model sometimes hints too strongly (a guiding question can name part of the answer).
+  If its question just repeats yours, Notewise retries once and then falls back to pointing you at the right section.
 - Plain text and markdown notes only (no PDF or handwriting yet). Notes are held in memory and cleared on restart.
 - Single user, local only. It is a study aid: check important facts against your course material.
 

@@ -78,3 +78,10 @@ def test_unsupported_citation_is_dropped():
                    "citations": ["controls.md#1", "controls.md#2"]})
     out = ask(nb(), llm, "what does the Kalman gain weigh against the prediction")
     assert out["citations"] == ["controls.md#2"]
+
+def test_tutor_echo_falls_back_and_cites_best_chunk():
+    from notewise.core import ask
+    echo = {"in_notes": True, "question": "What does the Kalman gain weigh?", "hint": "look", "citations": ["controls.md#1", "controls.md#2"]}
+    out = ask(nb(), ScriptLLM(echo, echo), "What does the Kalman gain weigh?", mode="tutor")
+    assert out["citations"] == ["controls.md#2"]
+    assert "Kalman filter" in out["question"] and out["question"] != echo["question"]
