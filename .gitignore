@@ -11,3 +11,4 @@ STATE.md
 tools/.gpu_batch_done
 shots/
 .pytest_cache/
+tools/gpu_batch.sh
